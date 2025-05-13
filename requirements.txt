@@ -9,3 +9,4 @@ opencv-python-headless
 streamlit-javascript
 streamlit-current-location
 streamlit-folium
+werkzeug
