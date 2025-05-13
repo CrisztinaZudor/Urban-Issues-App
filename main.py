@@ -6,13 +6,13 @@ import cv2
 import os
 import pandas as pd 
 import datetime
-import sqlite3
 from fpdf import FPDF
 from streamlit_current_location import current_position
 import admin_dashboard
 import map_view
-import csv
 from geopy.geocoders import OpenCage
+from reports_db import save_report 
+
 
 
 # ----------------------------- Custom CSS -----------------------------
@@ -335,32 +335,8 @@ if st.session_state["current_page"] == "Sesizeaza o problema":
             for cls in CLASS_NAMES:
                 report[cls] = st.session_state["detected_counts"].get(cls, 0)
 
-
-            # INSERT în baza de date SQLite
-            conn = sqlite3.connect(DB_PATH)
-            cursor = conn.cursor()
-            columns = ", ".join(CLASS_NAMES) 
-            placeholders = ", ".join(["?"] * len(CLASS_NAMES))
-            values = [report[cls] for cls in CLASS_NAMES]
-
-            cursor.execute(f"""
-                INSERT INTO reports (timestamp, {columns}, location, description, status)
-                VALUES (?, {placeholders}, ?, ?, ?)
-            """, [report["Timestamp"]] + values + [report["Location"], report["Description"], report["Status"]])
-
-            conn.commit()
-            conn.close()
+            save_report(report)  # ✅ store in SQLite
             st.success("Raport trimis cu succes!")
-
-            # Append to Reports.csv
-            csv_file = "Data/Reports.csv"
-            file_exists = os.path.exists(csv_file)
-
-            with open(csv_file, mode="a", newline="", encoding="utf-8") as f:
-                writer = csv.DictWriter(f, fieldnames=["Timestamp"] + CLASS_NAMES + ["Location", "Description", "Status"])
-                if not file_exists:
-                    writer.writeheader()
-                writer.writerow(report)
 
 
             def generate_pdf_report(image_np, report_data):
@@ -392,6 +368,7 @@ if st.session_state["current_page"] == "Sesizeaza o problema":
                     "wild_animals": "Animale sălbatice",
                     "dangerous_buildings": "Clădiri periculoase"
                 }
+                
 
                 pdf = FPDF()
                 pdf.add_page()
