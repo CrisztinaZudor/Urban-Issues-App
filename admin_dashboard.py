@@ -50,7 +50,11 @@ def show():
 
 
     # Convert Timestamp early
-    df["Timestamp"] = pd.to_datetime(df["Timestamp"], errors="coerce")
+    if "Timestamp" in df.columns:
+        df["Timestamp"] = pd.to_datetime(df["Timestamp"], errors="coerce")
+    else:
+        st.warning("Coloana 'Timestamp' nu există în fișier.")
+
 
     # Search bar (place first)
     search_term = st.text_input("Căutare în locație sau descriere")
@@ -143,10 +147,12 @@ def show():
         icon_color = icon_colors.get(status, "#6c757d")
         
         # Verificăm dacă timestamp-ul este valid
-        if pd.isna(row["Timestamp"]):
-            timestamp_str = "Data invalidă"
+        ts = row.get("Timestamp")
+        if isinstance(ts, pd.Timestamp) and not pd.isna(ts):
+            timestamp_str = ts.strftime("%Y-%m-%d %H:%M:%S")
         else:
-            timestamp_str = pd.to_datetime(row["Timestamp"]).strftime("%Y-%m-%d %H:%M:%S")
+            timestamp_str = "Data invalidă"
+
         
         latitude = row.get("Latitude")
         longitude = row.get("Longitude")
