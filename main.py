@@ -28,7 +28,7 @@ st.markdown("""
         .stButton>button,
         div[data-testid="stExpander"] > details {
             background-color: #2ecc71 !important;
-            color: white !important;
+            color: black !important;
             border: none !important;
             border-radius: 5px !important;
             padding: 0.5rem 1rem !important;
