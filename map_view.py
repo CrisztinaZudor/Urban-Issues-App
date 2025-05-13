@@ -69,13 +69,13 @@ def show():
         selected_status = []
 
         with col1:
-            if st.checkbox("🟥 Sesizat", value=True, key="sesizat"):
+            if st.checkbox("🔴 Sesizat", value=True, key="sesizat"):
                 selected_status.append("sesizat")
         with col2:
-            if st.checkbox("🟨 În proces de rezolvare", value=True, key="in_proces"):
+            if st.checkbox("🟡 În proces de rezolvare", value=True, key="in_proces"):
                 selected_status.append("în proces de rezolvare")
         with col3:
-            if st.checkbox("🟩 Rezolvat", value=True, key="rezolvat"):
+            if st.checkbox("🟢 Rezolvat", value=True, key="rezolvat"):
                 selected_status.append("rezolvat")
 
     filtered_df = df[df["status"].isin(selected_status)]
@@ -92,6 +92,13 @@ def show():
         pitch=0,
     )
 
+    # Rename BEFORE defining layer
+    filtered_df = filtered_df.rename(columns={
+        "Formatted timestamp": "formatted_timestamp",
+        "Formatted location": "formatted_location"
+    })
+
+    # Create layer AFTER renaming
     layer = pdk.Layer(
         "ScatterplotLayer",
         data=filtered_df,
@@ -99,18 +106,21 @@ def show():
         get_radius=120,
         get_fill_color='Color',
         pickable=True,
-    )
+    )    
 
-    filtered_df = filtered_df.rename(columns={
-        "Formatted timestamp": "formatted_timestamp",
-        "Formatted location": "formatted_location"
-    })
 
     st.pydeck_chart(pdk.Deck(
         map_style='mapbox://styles/mapbox/streets-v12',
         initial_view_state=view_state,
         layers=[layer],
         tooltip={
-            "text": "📍 {formatted_location}\n🕒 {formatted_timestamp}\n📝 {description}\n🔧 {status}"
+        "html": "<b>📍 {formatted_location}</b><br>🕒 {formatted_timestamp}<br>📝 {description}<br>🔧 {status}",
+        "style": {
+            "backgroundColor": "rgba(30,30,30,0.9)",
+            "color": "white",
+            "fontSize": "12px",
+            "padding": "10px"
         }
+    }
+
     ))
