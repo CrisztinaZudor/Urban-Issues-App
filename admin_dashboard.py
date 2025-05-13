@@ -153,7 +153,7 @@ def show():
         
         # Verificăm dacă timestamp-ul este valid
         ts = row.get("timestamp")
-        if isinstance(ts, pd.timestamp) and not pd.isna(ts):
+        if isinstance(ts, pd.Timestamp) and not pd.isna(ts):
             timestamp_str = ts.strftime("%Y-%m-%d %H:%M:%S")
         else:
             timestamp_str = "Data invalidă"
