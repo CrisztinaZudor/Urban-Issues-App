@@ -32,7 +32,7 @@ def show():
                 st.error("Utilizator sau parolă incorecte.")
         return  # oprește afișarea restului până la autentificare
 
-    st.title("Harta Problemelor Urbane")
+    st.title("Administreaza Problemele Urbane")
 
     df = load_reports()
     df.columns = df.columns.str.lower()
