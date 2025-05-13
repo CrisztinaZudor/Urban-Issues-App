@@ -13,6 +13,9 @@ import map_view
 from geopy.geocoders import OpenCage
 from reports_db import insert_report
 import sqlite3
+from reports_db import init_db
+init_db()
+
 
 # ----------------------------- Custom CSS -----------------------------
 st.markdown("""
