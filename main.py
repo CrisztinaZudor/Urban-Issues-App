@@ -109,39 +109,6 @@ DB_PATH = "Data/reports.db"
 os.makedirs(PDF_DIR, exist_ok=True)
 os.makedirs("Data", exist_ok=True)
 
-# ----------------------------- DB Setup -----------------------------
-def init_db():
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS reports (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            timestamp TEXT,
-            cracks INTEGER,
-            fallen_trees INTEGER,
-            graffiti INTEGER,
-            illegal_parking INTEGER,
-            open_manhole INTEGER,
-            overflowing_trashbin INTEGER,
-            pothole INTEGER,
-            stray INTEGER,
-            trash INTEGER,
-            roadkills INTEGER,
-            flood INTEGER,
-            broken_urban_furniture INTEGER,
-            wild_animals INTEGER,
-            dangerous_buildings INTEGER,
-            location TEXT,
-            description TEXT,
-            status TEXT
-        )
-    """)
-    conn.commit()
-    conn.close()
-
-
-init_db()
-
 # ----------------------------- Custom CSS -----------------------------
 st.markdown("""<style> ... </style>""", unsafe_allow_html=True)  # CSS păstrat neschimbat pentru claritate
 
