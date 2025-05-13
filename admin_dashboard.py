@@ -226,15 +226,15 @@ def show():
                 st.success("Status actualizat.")
                 st.rerun()
 
-                # Verificăm dacă timestamp-ul este valid pentru a crea numele fișierului PDF
-                pdf_filename = pd.to_datetime(row["timestamp"]).strftime("%Y-%m-%d_%H-%M-%S") if pd.notna(row["timestamp"]) else "invalid_date"
-                invalid_ts_count = df["timestamp"].isna().sum()
-                if invalid_ts_count > 0:
-                    st.warning(f"{invalid_ts_count} timestamp(uri) nu au fost parsate corect și vor apărea ca 'Data invalidă'")
+            # Verificăm dacă timestamp-ul este valid pentru a crea numele fișierului PDF
+            pdf_filename = pd.to_datetime(row["timestamp"]).strftime("%Y-%m-%d_%H-%M-%S") if pd.notna(row["timestamp"]) else "invalid_date"
+            invalid_ts_count = df["timestamp"].isna().sum()
+            if invalid_ts_count > 0:
+                st.warning(f"{invalid_ts_count} timestamp(uri) nu au fost parsate corect și vor apărea ca 'Data invalidă'")
 
-                pdf_path = os.path.join(PDF_DIR, f"Report_{pdf_filename}.pdf")
-                if os.path.exists(pdf_path):
-                    with open(pdf_path, "rb") as f:
-                        st.download_button("Descarcă PDF", f, file_name=os.path.basename(pdf_path))
-                else:
-                    st.info("PDF-ul pentru acest raport nu a fost găsit.")
+            pdf_path = os.path.join(PDF_DIR, f"Report_{pdf_filename}.pdf")
+            if os.path.exists(pdf_path):
+                with open(pdf_path, "rb") as f:
+                    st.download_button("Descarcă PDF", f, file_name=os.path.basename(pdf_path))
+            else:
+                st.info("PDF-ul pentru acest raport nu a fost găsit.")
