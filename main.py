@@ -12,7 +12,7 @@ from streamlit_current_location import current_position
 import admin_dashboard
 import map_view
 import csv
-from geopy.geocoders import Nominatim
+from geopy.geocoders import OpenCage
 
 
 # ----------------------------- Custom CSS -----------------------------
@@ -182,7 +182,7 @@ if st.session_state["current_page"] == "Sesizeaza o problema":
 
 
     location_str = ""
-    geolocator = Nominatim(user_agent="urban_issues_app")
+    geolocator = OpenCage(api_key="79333a6e62e94f6582766d6c508daf8b")
 
     if manual_location.strip():
         try:
