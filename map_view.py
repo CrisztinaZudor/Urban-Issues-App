@@ -6,19 +6,17 @@ from io import BytesIO
 from datetime import datetime
 from geopy.geocoders import Nominatim
 import time
+from reports_db import load_reports
+
 
 def show():
-    DATA_PATH = "Data/Reports.csv"
-
     st.title("Harta Problemelor Urbane")
 
-    if not os.path.exists(DATA_PATH):
+    df = load_reports()
+
+    if df.empty:
         st.warning("Nu există rapoarte disponibile.")
         return
-
-    df = pd.read_csv(DATA_PATH)
-    # Ensure consistent column casing
-    df.columns = [col.strip().capitalize() if col.lower() == "timestamp" else col for col in df.columns]
 
 
     def extract_lat_lon(location_str):
