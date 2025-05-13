@@ -10,3 +10,4 @@ streamlit-javascript
 streamlit-current-location
 streamlit-folium
 werkzeug
+opencage
