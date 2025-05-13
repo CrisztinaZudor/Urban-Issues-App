@@ -51,7 +51,7 @@ def show():
 
     # Convert Timestamp early
     if "Timestamp" in df.columns:
-        df["Timestamp"] = pd.to_datetime(df["Timestamp"], errors="coerce")
+        df["Timestamp"] = pd.to_datetime(df["Timestamp"].astype(str).str.strip(), errors="coerce")
     else:
         st.warning("Coloana 'Timestamp' nu există în fișier.")
 
