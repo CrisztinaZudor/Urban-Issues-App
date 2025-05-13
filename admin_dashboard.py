@@ -42,14 +42,14 @@ def show():
         return
 
 
-    if "Timestamp" in df.columns:
-        df["Timestamp"] = pd.to_datetime(df["Timestamp"], errors="coerce")
-        invalid_ts_count = df["Timestamp"].isna().sum()
+    if "timestamp" in df.columns:
+        df["timestamp"] = pd.to_datetime(df["timestamp"], errors="coerce")
+        invalid_ts_count = df["timestamp"].isna().sum()
         if invalid_ts_count > 0:
             st.warning(f"{invalid_ts_count} timestamp(uri) nu au fost parsate corect și vor apărea ca 'Data invalidă'")
-        df = df.sort_values("Timestamp", ascending=False)
+        df = df.sort_values("timestamp", ascending=False)
     else:
-        st.warning("Coloana 'Timestamp' nu există în fișier.")
+        st.warning("Coloana 'timestamp' nu există în fișier.")
 
 
     def extract_lat_lon(location_str):
@@ -59,8 +59,8 @@ def show():
         except:
             return None, None
 
-    df["Status"] = df["Status"].fillna("sesizat").astype(str).str.strip().str.lower()
-    df[["Latitude", "Longitude"]] = df["Location"].apply(lambda loc: pd.Series(extract_lat_lon(loc)))
+    df["status"] = df["status"].fillna("sesizat").astype(str).str.strip().str.lower()
+    df[["Latitude", "Longitude"]] = df["location"].apply(lambda loc: pd.Series(extract_lat_lon(loc)))
 
     search_term = st.text_input("Căutare în locație sau descriere")
 
@@ -83,13 +83,13 @@ def show():
 
     # Apply Status Filter
     if selected_status:
-        df = df[df["Status"].isin(selected_status)]
+        df = df[df["status"].isin(selected_status)]
 
     # Apply Text Search
     if search_term:
         df = df[
-            df["Location"].str.contains(search_term, case=False, na=False) |
-            df["Description"].str.contains(search_term, case=False, na=False)
+            df["location"].str.contains(search_term, case=False, na=False) |
+            df["description"].str.contains(search_term, case=False, na=False)
         ]
 
     df = df.reset_index(drop=True)
@@ -100,7 +100,7 @@ def show():
         "în proces de rezolvare": [255, 200, 0],
         "rezolvat": [0, 200, 0],
     }
-    valid_coords_df["Color"] = valid_coords_df["Status"].apply(lambda s: status_colors.get(s, [200, 0, 200]))
+    valid_coords_df["Color"] = valid_coords_df["status"].apply(lambda s: status_colors.get(s, [200, 0, 200]))
 
     if not valid_coords_df.empty:
         st.subheader("Localizare pe hartă")
@@ -147,13 +147,13 @@ def show():
     }
 
     for i, row in df.iterrows():
-        status = row["Status"]
+        status = row["status"]
         bg_color = bg_colors.get(status, "#e2e3e5")
         icon_color = icon_colors.get(status, "#6c757d")
         
         # Verificăm dacă timestamp-ul este valid
-        ts = row.get("Timestamp")
-        if isinstance(ts, pd.Timestamp) and not pd.isna(ts):
+        ts = row.get("timestamp")
+        if isinstance(ts, pd.timestamp) and not pd.isna(ts):
             timestamp_str = ts.strftime("%Y-%m-%d %H:%M:%S")
         else:
             timestamp_str = "Data invalidă"
@@ -204,8 +204,8 @@ def show():
                     count = row.get(cls, 0)
                     if count and int(count) > 0:
                         details += f"<li><strong>{PROBLEM_LABELS[cls]}:</strong> {count}</li>"
-                details += f"<li><strong>Descriere:</strong> {row['Description'] or '—'}</li>"
-                details += f"<li><strong>Status curent:</strong> {row['Status']}</li>"
+                details += f"<li><strong>Descriere:</strong> {row['description'] or '—'}</li>"
+                details += f"<li><strong>Status curent:</strong> {row['status']}</li>"
 
                 if google_maps_link:
                     details += f"<li><strong>Locație:</strong> <a href='{google_maps_link}' target='_blank'>Vezi pe Google Maps</a></li>"
@@ -216,19 +216,19 @@ def show():
                 st.markdown(details, unsafe_allow_html=True)
 
 
-            current_status = row["Status"] if row["Status"] in status_options else "sesizat"
+            current_status = row["status"] if row["status"] in status_options else "sesizat"
             new_status = st.selectbox("Actualizează status:", status_options,
                                       index=status_options.index(current_status),
                                           key=f"status_{i}")
-            if st.button("Salvează modificarea", key=f"save_{i}") and new_status != row["Status"]:
+            if st.button("Salvează modificarea", key=f"save_{i}") and new_status != row["status"]:
                 update_status(row["id"], new_status)
-                log_action(st.session_state["admin_user"], f"Actualizat status raport la {new_status} - {row['Timestamp']} - {row['Location']}")
+                log_action(st.session_state["admin_user"], f"Actualizat status raport la {new_status} - {row['timestamp']} - {row['location']}")
                 st.success("Status actualizat.")
                 st.rerun()
 
                 # Verificăm dacă timestamp-ul este valid pentru a crea numele fișierului PDF
-                pdf_filename = pd.to_datetime(row["Timestamp"]).strftime("%Y-%m-%d_%H-%M-%S") if pd.notna(row["Timestamp"]) else "invalid_date"
-                invalid_ts_count = df["Timestamp"].isna().sum()
+                pdf_filename = pd.to_datetime(row["timestamp"]).strftime("%Y-%m-%d_%H-%M-%S") if pd.notna(row["timestamp"]) else "invalid_date"
+                invalid_ts_count = df["timestamp"].isna().sum()
                 if invalid_ts_count > 0:
                     st.warning(f"{invalid_ts_count} timestamp(uri) nu au fost parsate corect și vor apărea ca 'Data invalidă'")
 
