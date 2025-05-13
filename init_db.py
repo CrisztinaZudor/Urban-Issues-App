@@ -1,16 +1,15 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat May 10 19:32:16 2025
-
-@author: Zinveliu Ioana
-"""
-
 from sqlalchemy import create_engine, Table, Column, Integer, String, DateTime, MetaData
 import datetime
+import os
 
-engine = create_engine("sqlite:///data.db")
+# Ensure the 'data' folder exists
+os.makedirs("data", exist_ok=True)
+
+# Create engine for the correct path
+engine = create_engine("sqlite:///data/reports.db")
 metadata = MetaData()
 
+# Define the table
 reports = Table("reports", metadata,
     Column("id", Integer, primary_key=True),
     Column("description", String),
@@ -23,5 +22,6 @@ reports = Table("reports", metadata,
     Column("overflow", String)
 )
 
+# Create the table if it doesn't exist
 metadata.create_all(engine)
 print("Baza de date a fost creată.")
