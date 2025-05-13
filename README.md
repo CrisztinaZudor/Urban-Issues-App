@@ -5,7 +5,7 @@
 
 ---
 
-## 🔍 Project Description
+## Project Description
 
 This Streamlit-based web application integrates a YOLOv11 object detection model trained on urban infrastructure issues. The app allows:
 
@@ -17,11 +17,11 @@ The system supports multiple user roles (citizens and admins) and maintains pers
 
 ---
 
-## 🧠 Model Details
+## Model Details
 
-The model, trained on **9,775 labeled images**, detects 14 urban issue classes with high performance.
+The model, trained on **9,775 labeled images**, detects 14 urban issue classes
 
-- **Model:** YOLOv11 (Roboflow)
+- **Model:** YOLOv11 
 - **Training platform:** [Roboflow](https://app.roboflow.com/)
 - **Precision:** 88.0%
 - **Recall:** 78.9%
@@ -33,7 +33,7 @@ The model, trained on **9,775 labeled images**, detects 14 urban issue classes w
 | Potholes                | 1620   | 98%   |
 | Graffiti                | 1022   | 69%   |
 | Illegal Parking         | 145    | 94%   |
-| Overflowing Trash Bins | 214    | 87%   |
+| Overflowing Trash Bins  | 214    | 87%   |
 | Stray Animals           | 1718   | 98%   |
 | Trash                   | 1214   | 35%   |
 | Broken Urban Furniture  | 336    | 97%   |
@@ -46,32 +46,31 @@ The model, trained on **9,775 labeled images**, detects 14 urban issue classes w
 
 ---
 
-## 🗃️ Dataset
+## Dataset
 
 **Total images:** 9,775  
 **Source breakdown:**
 
-- 🛠️ **Roboflow**: Most datasets (e.g., cracks, graffiti, potholes)
-- 🦴 **Roadkill**: [BOKU University, 2024, GBIF](https://doi.org/10.15468/ejb47y)
-- 🗑️ **Trash**: [TACO Dataset](https://tacodataset.org/)
-- 🪑 **Broken Urban Furniture**: Web-scraped using a custom script
-- 🧱 **Dangerous Buildings**: Web-scraped and manually curated
+- **Most datasets **: Roboflow
+- **Roadkill**: [BOKU University, 2024, GBIF](https://doi.org/10.15468/ejb47y)
+- **Trash**: [TACO Dataset](https://tacodataset.org/)
+- **Broken Urban Furniture & Dangerous Buildings**: Web-scraped using a custom script
+  
+---
+
+## Features
+
+- Image-based problem reporting
+- Real-time object detection using YOLOv11
+- Map with interactive markers by report status
+- Automatic PDF report generation (FPDF)
+- Admin-only dashboard with report status management
+- GPS + address geocoding (via OpenCage + `streamlit-current-location`)
+- Persistent SQLite-based storage
 
 ---
 
-## 🧩 Features
-
-- 📷 Image-based problem reporting
-- 🧠 Real-time object detection using YOLOv11
-- 🗺️ Map with interactive markers by report status
-- 📝 Automatic PDF report generation (FPDF)
-- 🔐 Admin-only dashboard with report status management
-- 📍 GPS + address geocoding (via OpenCage + `streamlit-current-location`)
-- 💾 Persistent SQLite-based storage
-
----
-
-## 🧪 Requirements
+## Requirements
 
 Install dependencies using:
 
@@ -99,7 +98,7 @@ streamlit-folium
 
 ---
 
-## 🚀 Deployment
+## Deployment
 
 The app is publicly available and hosted on [Streamlit Cloud](https://urban-issues-app.streamlit.app).
 
@@ -113,7 +112,7 @@ streamlit run main.py
 
 ---
 
-## 👥 User Roles
+## User Roles
 
 | Role         | Capabilities                                                 |
 |--------------|--------------------------------------------------------------|
@@ -122,7 +121,7 @@ streamlit run main.py
 
 ---
 
-## 📄 Citation
+##  Citation
 
 For datasets reused in this project:
 
@@ -134,6 +133,3 @@ For datasets reused in this project:
 
 ---
 
-## 📬 Contact
-
-For questions or contributions, please open an issue or contact the maintainer via GitHub.
