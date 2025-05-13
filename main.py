@@ -327,10 +327,10 @@ if st.session_state["current_page"] == "Sesizeaza o problema":
 
             timestamp = datetime.datetime.now().isoformat()
             report = {
-                "Timestamp": timestamp,
-                "Location": location_str,
-                "Description": description,
-                "Status": "sesizat"
+                "timestamp": timestamp,
+                "location": location_str,
+                "description": description,
+                "status": "sesizat"
             }
 
             # Add detected counts to the report
