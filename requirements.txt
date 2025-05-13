@@ -1,0 +1,11 @@
+streamlit==1.45.0
+pandas
+pydeck
+geopy
+fpdf
+requests
+Pillow
+opencv-python-headless
+streamlit-javascript
+streamlit-current-location
+streamlit-folium

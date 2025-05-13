@@ -1,0 +1,42 @@
+timestamp,username,action
+2025-05-11T00:31:34.756590,admin1,Autentificare reușită
+2025-05-11T00:35:40.239633,admin2,Autentificare reușită
+2025-05-11T00:38:58.734968,admin12,Autentificare eșuată
+2025-05-11T00:39:13.397979,admin2,Autentificare reușită
+2025-05-11T00:47:40.203839,admin2,Autentificare reușită
+2025-05-11T00:59:27.548582,admin2,Autentificare eșuată
+2025-05-11T00:59:41.521183,admin1,Autentificare eșuată
+2025-05-11T00:59:42.721302,admin1,Autentificare eșuată
+2025-05-11T00:59:54.736272,admin1,Autentificare reușită
+2025-05-11T01:00:04.909206,admin1,"Actualizat status raport la rezolvat - 2025-05-08 01:07:09.817829 - 46.7557893, 23.590859"
+2025-05-11T01:01:57.759859,admin3,Autentificare eșuată
+2025-05-11T01:02:07.375668,admin3,Autentificare reușită
+2025-05-11T01:04:56.506195,admin3,Autentificare eșuată
+2025-05-11T01:04:59.937619,admin3,Autentificare reușită
+2025-05-13T00:23:03.189310,admin3,Autentificare reușită
+2025-05-13T01:12:33.675986,admin3,Autentificare reușită
+2025-05-13T02:40:32.149124,admin3,Autentificare reușită
+2025-05-13T02:40:53.046878,admin3,"Actualizat status raport la în proces de rezolvare - 2025-05-13 02:37:18.336143 - 46.7558081, 23.5908731"
+2025-05-13T11:31:16.782318,admin3,Autentificare reușită
+2025-05-13T11:43:13.679087,admin3,Autentificare reușită
+2025-05-13T11:46:28.652604,admin3,Autentificare reușită
+2025-05-13T11:47:30.472858,admin2,Autentificare eșuată
+2025-05-13T11:47:37.488779,admin3,Autentificare eșuată
+2025-05-13T11:47:43.585534,admin3,Autentificare reușită
+2025-05-13T11:52:43.397311,admin3,Autentificare reușită
+2025-05-13T12:03:36.612611,admin3,Autentificare reușită
+2025-05-13T12:10:30.420460,admin3,Autentificare reușită
+2025-05-13T12:18:53.130941,admin3,Autentificare reușită
+2025-05-13T12:35:29.841943,admin3,Autentificare reușită
+2025-05-13T12:39:46.858018,admin3,Autentificare reușită
+2025-05-13T12:43:16.290076,admin3,Autentificare reușită
+2025-05-13T12:45:57.972876,admin3,Autentificare reușită
+2025-05-13T12:48:11.740457,admin3,Autentificare eșuată
+2025-05-13T12:48:16.511164,admin3,Autentificare reușită
+2025-05-13T12:50:51.845554,admin3,Autentificare reușită
+2025-05-13T12:59:26.495711,admin3,Autentificare reușită
+2025-05-13T13:05:49.633862,admin3,Autentificare reușită
+2025-05-13T13:11:49.548477,admin3,Autentificare reușită
+2025-05-13T13:12:16.897358,admin3,"Actualizat status raport la rezolvat - 2025-05-13 13:05:27.585626 - 46.7527414, 23.543444"
+2025-05-13T13:12:20.784586,admin3,"Actualizat status raport la în proces de rezolvare - 2025-05-13 13:04:03.662041 - 46.7690858, 23.5857032"
+2025-05-13T13:12:58.905397,admin3,Autentificare reușită
