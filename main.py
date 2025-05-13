@@ -386,13 +386,13 @@ if st.session_state["current_page"] == "Sesizeaza o problema":
 
                 # General Info
                 pdf.set_font("DejaVu", size=12)
-                pdf.cell(200, 10, txt=f"Data și ora: {report_data['Timestamp']}", ln=True)
-                pdf.cell(200, 10, txt=f"Locație: {report_data['Location']}", ln=True)
-                pdf.cell(200, 10, txt=f"Status: {report_data['Status']}", ln=True)
+                pdf.cell(200, 10, txt=f"Data și ora: {report_data['timestamp']}", ln=True)
+                pdf.cell(200, 10, txt=f"Locație: {report_data['location']}", ln=True)
+                pdf.cell(200, 10, txt=f"Status: {report_data['status']}", ln=True)
                 pdf.ln(5)
 
                 # Description
-                pdf.multi_cell(0, 10, txt=f"Descriere: {report_data['Description'] or '—'}")
+                pdf.multi_cell(0, 10, txt=f"Descriere: {report_data['description'] or '—'}")
                 pdf.ln(5)
 
                 # Detected Problems
