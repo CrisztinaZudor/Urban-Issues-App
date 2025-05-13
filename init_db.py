@@ -2,26 +2,35 @@ from sqlalchemy import create_engine, Table, Column, Integer, String, DateTime, 
 import datetime
 import os
 
-# Ensure the 'data' folder exists
+# Make sure folder exists
 os.makedirs("data", exist_ok=True)
 
-# Create engine for the correct path
+# Connect to the correct DB
 engine = create_engine("sqlite:///data/reports.db")
 metadata = MetaData()
 
-# Define the table
+# Create the reports table
 reports = Table("reports", metadata,
     Column("id", Integer, primary_key=True),
-    Column("description", String),
-    Column("location", String),
-    Column("status", String),
     Column("timestamp", DateTime, default=datetime.datetime.utcnow),
-    Column("potholes", String),
-    Column("parking", String),
-    Column("graffiti", String),
-    Column("overflow", String)
+    Column("cracks", Integer),
+    Column("fallen_trees", Integer),
+    Column("graffiti", Integer),
+    Column("illegal_parking", Integer),
+    Column("open_manhole", Integer),
+    Column("overflowing_trashbin", Integer),
+    Column("pothole", Integer),
+    Column("stray", Integer),
+    Column("trash", Integer),
+    Column("roadkills", Integer),
+    Column("flood", Integer),
+    Column("broken_urban_furniture", Integer),
+    Column("wild_animals", Integer),
+    Column("dangerous_buildings", Integer),
+    Column("location", String),
+    Column("description", String),
+    Column("status", String)
 )
 
-# Create the table if it doesn't exist
 metadata.create_all(engine)
-print("Baza de date a fost creată.")
+print("✅ Baza de date a fost creată cu succes.")
