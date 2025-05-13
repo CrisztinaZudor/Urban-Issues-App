@@ -15,6 +15,16 @@
 
 ---
 
+## User Roles
+
+| Role        | Permissions |
+|-------------|-------------|
+| Citizen     | Upload photos, view map, generate reports |
+| Admin       | Filter reports, update statuses, download PDFs |
+
+---
+
+
 ## Model Overview
 
 - **Architecture:** YOLOv11  
@@ -48,21 +58,13 @@
 
 ## Dataset Sources
 
-- **Roboflow:** Most datasets used for training  
+- **Most datasets:** Roboflow 
 - **Roadkill:** [University of Natural Resources and Life Sciences, Vienna (2024). Roadkill. GBIF.](https://doi.org/10.15468/ejb47y)  
 - **Trash:** [TACO Dataset – Trash Annotations in Context](https://tacodataset.org)  
 - **Broken Urban Furniture & Dangerous Buildings:** Web-scraped using a custom Python script  
 
 ---
 
-## User Roles
-
-| Role        | Permissions |
-|-------------|-------------|
-| Citizen     | Upload photos, view map, generate reports |
-| Admin       | Filter reports, update statuses, download PDFs |
-
----
 
 ## Installation
 
