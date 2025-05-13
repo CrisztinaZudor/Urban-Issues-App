@@ -35,6 +35,7 @@ def show():
     st.title("Harta Problemelor Urbane")
 
     df = load_reports()
+    df.columns = df.columns.str.lower()
 
     if df.empty:
         st.warning("Nu există rapoarte salvate încă.")
