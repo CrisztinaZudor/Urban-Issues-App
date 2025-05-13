@@ -5,9 +5,11 @@ import pydeck as pdk
 import datetime
 from db_utils import verify_admin, log_action
 from io import BytesIO
+from reports_db import load_reports
+from reports_db import update_status
+
 
 def show():
-    DATA_PATH = "Data/Reports.csv"
     PDF_DIR = "generated_pdfs"
 
     # --- Autentificare Admin ---
@@ -32,12 +34,12 @@ def show():
 
     st.title("Harta Problemelor Urbane")
 
-    if not os.path.exists(DATA_PATH):
+    df = load_reports()
+
+    if df.empty:
         st.warning("Nu există rapoarte salvate încă.")
         return
 
-    df = pd.read_csv(DATA_PATH)
-    df.columns = df.columns.str.strip()
 
     if "Timestamp" in df.columns:
         df["Timestamp"] = pd.to_datetime(df["Timestamp"], errors="coerce")
@@ -218,8 +220,7 @@ def show():
                                       index=status_options.index(current_status),
                                           key=f"status_{i}")
             if st.button("Salvează modificarea", key=f"save_{i}") and new_status != row["Status"]:
-                df.at[i, "Status"] = new_status
-                df.to_csv(DATA_PATH, index=False)
+                update_status(row["id"], new_status)
                 log_action(st.session_state["admin_user"], f"Actualizat status raport la {new_status} - {row['Timestamp']} - {row['Location']}")
                 st.success("Status actualizat.")
                 st.rerun()
