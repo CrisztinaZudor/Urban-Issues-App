@@ -28,7 +28,7 @@ st.markdown("""
         .stButton>button,
         div[data-testid="stExpander"] > details {
             background-color: #2ecc71 !important;
-            color: black !important;
+            color: white !important;
             border: none !important;
             border-radius: 5px !important;
             padding: 0.5rem 1rem !important;
@@ -57,7 +57,7 @@ st.markdown("""
             align-items: left;
             font-weight: 500;
             font-size: 15px;
-            color: white !important;
+            color: black !important;
         }
 
         /* Hide internal background on open */
