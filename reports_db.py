@@ -1,5 +1,6 @@
 import sqlite3
 import os
+import pandas as pd 
 
 # Path to your database file
 DB_PATH = os.path.join("data", "reports.db")
@@ -62,3 +63,19 @@ def fetch_reports():
     df = pd.read_sql_query("SELECT * FROM reports", conn)
     conn.close()
     return df
+
+# Load all reports from the DB (used by admin_dashboard & map_view)
+def load_reports():
+    conn = sqlite3.connect(DB_PATH)
+    df = pd.read_sql_query("SELECT * FROM reports", conn)
+    conn.close()
+    return df
+
+# Update the status of a report (used by admin_dashboard)
+def update_status(report_id, new_status):
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    c.execute("UPDATE reports SET status = ? WHERE id = ?", (new_status, report_id))
+    conn.commit()
+    conn.close()
+
