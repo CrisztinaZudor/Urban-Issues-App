@@ -337,7 +337,7 @@ if st.session_state["current_page"] == "Sesizeaza o problema":
             for cls in CLASS_NAMES:
                 report[cls] = st.session_state["detected_counts"].get(cls, 0)
 
-            save_report(report)  # ✅ store in SQLite
+            insert_report(report) 
             st.success("Raport trimis cu succes!")
 
 
