@@ -51,10 +51,15 @@ def show():
 
     # Convert Timestamp early
     if "Timestamp" in df.columns:
-        df["Timestamp"] = pd.to_datetime(df["Timestamp"].astype(str).str.strip(), errors="coerce")
+        df["Timestamp"] = (
+            df["Timestamp"]
+            .astype(str)
+            .str.replace(r"[^0-9\-\s:.]", "", regex=True)  # Remove invisible characters
+            .str.strip()
+        )
+        df["Timestamp"] = pd.to_datetime(df["Timestamp"], errors="coerce", utc=True).dt.tz_convert(None)
     else:
         st.warning("Coloana 'Timestamp' nu există în fișier.")
-
 
     # Search bar (place first)
     search_term = st.text_input("Căutare în locație sau descriere")
