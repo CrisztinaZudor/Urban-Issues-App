@@ -37,6 +37,24 @@ def show():
         return
 
     df = pd.read_csv(DATA_PATH)
+    df.columns = df.columns.str.strip()
+
+    if "Timestamp" in df.columns:
+        df["Timestamp"] = (
+            df["Timestamp"]
+            .astype(str)
+            .str.replace(r"[^\d\-\s:.]", "", regex=True)  # Remove non-date characters
+            .str.strip()
+        )
+        df["Timestamp"] = pd.to_datetime(df["Timestamp"], errors="coerce")
+
+        # Warn once about invalid timestamps
+        invalid_ts_count = df["Timestamp"].isna().sum()
+        if invalid_ts_count > 0:
+            st.warning(f"{invalid_ts_count} timestamp(uri) nu au fost parsate corect și vor apărea ca 'Data invalidă'")
+            df = df.sort_values("Timestamp", ascending=False)
+    else:
+        st.warning("Coloana 'Timestamp' nu există în fișier.")
 
     def extract_lat_lon(location_str):
         try:
@@ -48,20 +66,6 @@ def show():
     df["Status"] = df["Status"].fillna("sesizat").astype(str).str.strip().str.lower()
     df[["Latitude", "Longitude"]] = df["Location"].apply(lambda loc: pd.Series(extract_lat_lon(loc)))
 
-
-    # Convert Timestamp early
-    if "Timestamp" in df.columns:
-        df["Timestamp"] = (
-            df["Timestamp"]
-            .astype(str)
-            .str.replace(r"[^0-9\-\s:.]", "", regex=True)  # Remove invisible characters
-            .str.strip()
-        )
-        df["Timestamp"] = pd.to_datetime(df["Timestamp"], errors="coerce", utc=True).dt.tz_convert(None)
-    else:
-        st.warning("Coloana 'Timestamp' nu există în fișier.")
-
-    # Search bar (place first)
     search_term = st.text_input("Căutare în locație sau descriere")
 
     # Filters
@@ -229,6 +233,10 @@ def show():
 
                 # Verificăm dacă timestamp-ul este valid pentru a crea numele fișierului PDF
                 pdf_filename = pd.to_datetime(row["Timestamp"]).strftime("%Y-%m-%d_%H-%M-%S") if pd.notna(row["Timestamp"]) else "invalid_date"
+                invalid_ts_count = df["Timestamp"].isna().sum()
+                if invalid_ts_count > 0:
+                    st.warning(f"{invalid_ts_count} timestamp(uri) nu au fost parsate corect și vor apărea ca 'Data invalidă'")
+
                 pdf_path = os.path.join(PDF_DIR, f"Report_{pdf_filename}.pdf")
                 if os.path.exists(pdf_path):
                     with open(pdf_path, "rb") as f:
