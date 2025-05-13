@@ -11,7 +11,7 @@ from streamlit_current_location import current_position
 import admin_dashboard
 import map_view
 from geopy.geocoders import OpenCage
-from reports_db import save_report 
+from reports_db import insert_report
 
 
 
