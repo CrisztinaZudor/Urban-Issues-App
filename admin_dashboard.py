@@ -106,9 +106,9 @@ def show():
         st.subheader("Localizare pe hartă")
 
         view_state = pdk.ViewState(
-            latitude=valid_coords_df["Latitude"].mean(),
-            longitude=valid_coords_df["Longitude"].mean(),
-            zoom=12,
+            latitude=46.77199106484599,   # Cluj-Napoca
+            longitude=23.618117574725613,
+            zoom=11,
             pitch=0,
         )
 
