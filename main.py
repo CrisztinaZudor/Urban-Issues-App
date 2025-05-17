@@ -128,7 +128,7 @@ with st.sidebar:
 
     st.markdown("---")
     with st.expander("Contact"):
-        st.markdown("Email: [urban@email.com](mailto:urban@email.com)")
+        st.markdown("Email: [urban.issues.app@gmail.com](mailto:urban.issues.app@gmail.com)")
 
 # ----------------------------- Page Routing -----------------------------
 if st.session_state["current_page"] == "Sesizeaza o problema":
