@@ -250,7 +250,7 @@ def show():
     
                 try:
                     drive_link = upload_pdf_to_drive(pdf_path, f"Report_{pdf_filename}.pdf")
-                    st.markdown(f"📂 [Deschide în Google Drive]({drive_link})", unsafe_allow_html=True)
+                    st.markdown(f" [Deschide în Google Drive]({drive_link})", unsafe_allow_html=True)
                 except Exception as e:
                     st.error(f"Eroare la încărcarea în Google Drive: {e}")
             else:
