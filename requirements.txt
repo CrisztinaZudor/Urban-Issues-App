@@ -11,3 +11,5 @@ streamlit-current-location
 streamlit-folium
 werkzeug
 opencage
+gspread
+oauth2client
