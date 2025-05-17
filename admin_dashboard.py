@@ -5,7 +5,7 @@ import pydeck as pdk
 import datetime
 from db_utils import verify_admin, log_action
 from io import BytesIO
-from reports_db import load_reports
+from load_from_google_sheets import load_reports_from_google_sheets
 from reports_db import update_status
 
 
@@ -34,7 +34,7 @@ def show():
 
     st.title("Administreaza Problemele Urbane")
 
-    df = load_reports()
+    df = load_reports_from_google_sheets()
     df.columns = df.columns.str.lower()
 
     if df.empty:
