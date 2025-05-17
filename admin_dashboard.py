@@ -6,7 +6,7 @@ import datetime
 from db_utils import verify_admin, log_action
 from io import BytesIO
 from load_from_google_sheets import load_reports_from_google_sheets
-from reports_db import update_status
+from load_from_google_sheets import update_status_in_google_sheets
 
 
 def show():
@@ -221,7 +221,14 @@ def show():
                                       index=status_options.index(current_status),
                                           key=f"status_{i}")
             if st.button("Salvează modificarea", key=f"save_{i}") and new_status != row["status"]:
-                update_status(row["id"], new_status)
+                success = update_status_in_google_sheets(row["timestamp"], row["location"], new_status)
+                if success:
+                    log_action(st.session_state["admin_user"], f"Actualizat status raport la {new_status} - {row['timestamp']} - {row['location']}")
+                    st.success("Status actualizat.")
+                    st.rerun()
+                else:
+                    st.error("Eroare: raportul nu a putut fi găsit pentru actualizare.")
+
                 log_action(st.session_state["admin_user"], f"Actualizat status raport la {new_status} - {row['timestamp']} - {row['location']}")
                 st.success("Status actualizat.")
                 st.rerun()
