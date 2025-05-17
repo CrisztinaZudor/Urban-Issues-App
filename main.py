@@ -13,6 +13,7 @@ import map_view
 from geopy.geocoders import OpenCage
 from reports_db import insert_report
 import sqlite3
+from save_to_google_sheets import save_to_google_sheets
 from reports_db import init_db
 init_db()
 
@@ -305,6 +306,7 @@ if st.session_state["current_page"] == "Sesizeaza o problema":
                 report[cls] = st.session_state["detected_counts"].get(cls, 0)
 
             insert_report(report) 
+            save_to_google_sheets(report)
             st.success("Raport trimis cu succes!")
 
 
