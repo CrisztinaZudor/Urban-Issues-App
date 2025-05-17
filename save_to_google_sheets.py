@@ -9,7 +9,7 @@ def save_to_google_sheets(report):
     ]
     creds = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_service_account"], scope)
     client = gspread.authorize(creds)
-    sheet = client.open("Raportari_Urbane").sheet1
+    sheet = client.open_by_key("1kf7im4WWNZJkPzR3p8NOatwTYBc5mSxuCCnEqISp-Tk").sheet1
 
     row = [
         report["timestamp"],
