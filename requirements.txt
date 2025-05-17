@@ -9,3 +9,4 @@ python-dateutil
 requests
 opencv-python-headless
 streamlit-current-location
+werkzeug
