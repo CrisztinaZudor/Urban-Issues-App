@@ -86,11 +86,12 @@ def show():
     filtered_df["Color"] = filtered_df["status"].apply(lambda status: status_colors.get(status, [200, 200, 200]))
 
     view_state = pdk.ViewState(
-        latitude=filtered_df["Latitude"].mean(),
-        longitude=filtered_df["Longitude"].mean(),
+        latitude=46.7712,   # Cluj-Napoca
+        longitude=23.6236,
         zoom=12,
         pitch=0,
     )
+
 
     # Rename BEFORE defining layer
     filtered_df = filtered_df.rename(columns={
