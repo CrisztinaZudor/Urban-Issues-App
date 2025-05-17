@@ -39,7 +39,7 @@ def show():
     st.title("Administreaza Problemele Urbane")
 
     df = load_reports_from_google_sheets()
-    df.columns = df.columns.str.lower()
+    df.columns = [str(col).lower() for col in df.columns]
 
     if df.empty:
         st.warning("Nu există rapoarte salvate încă.")
