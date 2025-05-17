@@ -145,7 +145,7 @@ if st.session_state["current_page"] == "Sesizeaza o problema":
     location_data = current_position()
 
     manual_location = st.text_input(
-        "Introdu locația manual (opțional):",
+        "Dacă locația detectată automat nu este corectă, poți introduce manual adresa:",
         placeholder="Ex: 46.770439, 23.591423 sau Str. Memorandumului, Cluj-Napoca"
     )
 
