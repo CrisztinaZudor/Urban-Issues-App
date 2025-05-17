@@ -6,7 +6,7 @@ import io
 
 def upload_pdf_to_drive(file_path, filename):
     scope = ['https://www.googleapis.com/auth/drive.file']
-    creds = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["general"], scope)
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_service_account"], scope)
 
     drive_service = build('drive', 'v3', credentials=creds)
 
