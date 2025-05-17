@@ -7,6 +7,10 @@ from db_utils import verify_admin, log_action
 from io import BytesIO
 from load_from_google_sheets import load_reports_from_google_sheets
 from load_from_google_sheets import update_status_in_google_sheets
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaIoBaseUpload
+from oauth2client.service_account import ServiceAccountCredentials
+from upload_to_drive import upload_pdf_to_drive
 
 
 def show():
@@ -243,5 +247,12 @@ def show():
             if os.path.exists(pdf_path):
                 with open(pdf_path, "rb") as f:
                     st.download_button("Descarcă PDF", f, file_name=os.path.basename(pdf_path))
+    
+                try:
+                    drive_link = upload_pdf_to_drive(pdf_path, f"Report_{pdf_filename}.pdf")
+                    st.markdown(f"📂 [Deschide în Google Drive]({drive_link})", unsafe_allow_html=True)
+                except Exception as e:
+                    st.error(f"Eroare la încărcarea în Google Drive: {e}")
             else:
                 st.info("PDF-ul pentru acest raport nu a fost găsit.")
+
