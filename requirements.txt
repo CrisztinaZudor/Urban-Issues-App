@@ -3,13 +3,7 @@ pandas
 pydeck
 geopy
 fpdf
-requests
-Pillow
-opencv-python-headless
-streamlit-javascript
-streamlit-current-location
-streamlit-folium
-werkzeug
-opencage
 gspread
 oauth2client
+python-dateutil
+requests
