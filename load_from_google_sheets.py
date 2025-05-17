@@ -34,7 +34,12 @@ def update_status_in_google_sheets(timestamp, location, new_status):
     if isinstance(timestamp, datetime):
         ts_str = timestamp.strftime("%Y-%m-%d %H:%M:%S")
     else:
-        ts_str = str(timestamp).strip()
+        try:
+            ts_obj = datetime.fromisoformat(str(timestamp))
+            ts_str = ts_obj.strftime("%Y-%m-%d %H:%M:%S")
+        except:
+            ts_str = str(timestamp).split(".")[0].replace("T", " ")
+
 
     formatted_loc = format_coords(location)
 
