@@ -116,7 +116,7 @@ def show():
             "ScatterplotLayer",
             data=valid_coords_df,
             get_position='[Longitude, Latitude]',
-            get_radius=60,
+            get_radius=120,
             get_fill_color='Color',
             pickable=True,
         )
