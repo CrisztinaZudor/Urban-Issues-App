@@ -88,7 +88,7 @@ def show():
     view_state = pdk.ViewState(
         latitude=46.77199106484599,   # Cluj-Napoca
         longitude=23.618117574725613,
-        zoom=10,
+        zoom=12,
         pitch=0,
     )
 
