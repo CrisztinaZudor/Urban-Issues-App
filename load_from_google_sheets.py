@@ -44,7 +44,12 @@ def update_status_in_google_sheets(timestamp, location, new_status):
     formatted_loc = format_coords(location)
 
     for i, row in enumerate(records):
-        row_ts = str(row.get("timestamp", "")).strip()
+        try:
+            row_ts_obj = datetime.fromisoformat(str(row.get("timestamp", "")).strip())
+            row_ts = row_ts_obj.strftime("%Y-%m-%d %H:%M:%S")
+        except:
+            row_ts = str(row.get("timestamp", "")).split(".")[0].replace("T", " ")
+
         row_loc = format_coords(str(row.get("location", "")).strip())
 
         if row_ts == ts_str and row_loc == formatted_loc:
