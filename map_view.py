@@ -6,13 +6,13 @@ from io import BytesIO
 from datetime import datetime
 from geopy.geocoders import Nominatim
 import time
-from reports_db import load_reports
+from load_from_google_sheets import load_reports_from_google_sheets
 
 
 def show():
     st.title("Harta Problemelor Urbane")
 
-    df = load_reports()
+    df = load_reports_from_google_sheets()
 
     if df.empty:
         st.warning("Nu există rapoarte disponibile.")
@@ -92,13 +92,11 @@ def show():
         pitch=0,
     )
 
-    # Rename BEFORE defining layer
     filtered_df = filtered_df.rename(columns={
         "Formatted timestamp": "formatted_timestamp",
         "Formatted location": "formatted_location"
     })
 
-    # Create layer AFTER renaming
     layer = pdk.Layer(
         "ScatterplotLayer",
         data=filtered_df,
