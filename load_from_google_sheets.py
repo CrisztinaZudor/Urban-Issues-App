@@ -13,6 +13,15 @@ def load_reports_from_google_sheets():
     data = sheet.get_all_records()
     return pd.DataFrame(data)
 
+from datetime import datetime
+
+def format_coords(coord_str):
+    try:
+        lat, lon = map(float, coord_str.split(","))
+        return f"{round(lat, 5)},{round(lon, 5)}"
+    except:
+        return None
+
 def update_status_in_google_sheets(timestamp, location, new_status):
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
     creds = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["gcp_service_account"], scope)
@@ -21,15 +30,23 @@ def update_status_in_google_sheets(timestamp, location, new_status):
 
     records = sheet.get_all_records()
 
+    # Convert timestamp to string format used in Sheets
+    if isinstance(timestamp, datetime):
+        ts_str = timestamp.strftime("%Y-%m-%d %H:%M:%S")
+    else:
+        ts_str = str(timestamp).strip()
+
+    formatted_loc = format_coords(location)
+
     for i, row in enumerate(records):
-        row_timestamp = row.get("timestamp", "")
-        row_location = row.get("location", "")
-        
-        # Match by both timestamp and location
-        if str(row_timestamp).strip() == str(timestamp).strip() and str(row_location).strip() == str(location).strip():
-            cell_row = i + 2  # +2 because get_all_records skips the header row
-            status_col_index = list(records[0].keys()).index("status") + 1
-            sheet.update_cell(cell_row, status_col_index, new_status)
+        row_ts = str(row.get("timestamp", "")).strip()
+        row_loc = format_coords(str(row.get("location", "")).strip())
+
+        if row_ts == ts_str and row_loc == formatted_loc:
+            cell_row = i + 2  # header is skipped in get_all_records
+            col_names = list(records[0].keys())
+            status_col = col_names.index("status") + 1
+            sheet.update_cell(cell_row, status_col, new_status)
             return True
 
     return False
